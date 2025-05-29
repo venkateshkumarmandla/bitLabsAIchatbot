@@ -196,7 +196,12 @@ function LoginBody({ handleLogin }) {
           let resume;
           try {
             const profileIdResponse1 = await axios.get(
-              `${apiUrl}/resume/pdf/${userId}`
+              `${apiUrl}/resume/pdf/${userId}`,
+               {
+              headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+            },
             );
           } catch (error) {
             resume = error.response.status;

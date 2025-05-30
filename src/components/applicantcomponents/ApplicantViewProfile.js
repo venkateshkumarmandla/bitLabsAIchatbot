@@ -211,21 +211,40 @@ const ApplicantViewProfile = () => {
     );
   }
   
-  const handleResumeClick1 = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/applicant-pdf/getresume/${user.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
-          }
-        }, { responseType: 'blob' });
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      const url = window.URL.createObjectURL(blob);
-      window.open(url, '_blank');
-    } catch (error) {
-      console.error('Error fetching resume:', error);
-    }
-  };
+  // const handleResumeClick1 = async () => {
+  //   try {
+  //     const response = await axios.get(`${apiUrl}/applicant-pdf/getresume/${user.id}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+  //         }
+  //       }, { responseType: 'blob' });
+  //     const blob = new Blob([response.data], { type: 'application/pdf' });
+  //     const url = window.URL.createObjectURL(blob);
+  //     window.open(url, '_blank');
+  //   } catch (error) {
+  //     console.error('Error fetching resume:', error);
+  //   }
+  // };
+ 
+ const handleResumeClick1 = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/applicant-pdf/getresume/${user.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+      },
+      responseType: 'blob', // ✅ Move inside the config object
+    });
+
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url, '_blank'); // Opens in new tab
+
+  } catch (error) {
+    console.error('Error fetching resume:', error);
+  }
+};
+
   const handleCameraClick = () => {
     setCameraModalIsOpen(true);
   };

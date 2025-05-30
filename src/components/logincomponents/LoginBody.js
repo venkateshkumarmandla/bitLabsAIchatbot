@@ -194,7 +194,10 @@ function LoginBody({ handleLogin }) {
           const profileId = profileIdResponse.data;
 
           let resume;
+          console.log("Resume status checking", resume);
+
           try {
+            const jwtToken = localStorage.getItem("jwtToken");
             const profileIdResponse1 = await axios.get(
               `${apiUrl}/resume/pdf/${userId}`,
                {
@@ -206,18 +209,25 @@ function LoginBody({ handleLogin }) {
           } catch (error) {
             resume = error.response.status;
           }
-
+console.log("Profile ID:", profileId);
+          console.log("Resume status:", resume);
           if (profileId !== 0 && resume === 404) {
             console.log("checking ", jwtToken);
             localStorage.setItem("jwtToken", userData.data.jwt);
+            console.log("Profile ID:", profileId);
+          console.log("Resume status:", resume);
             navigate("/applicant-basic-details-form/3");
           } else if (profileId === 0 || resume === 404) {
             console.log("checking ", jwtToken);
             localStorage.setItem("jwtToken", userData.data.jwt);
             navigate("/applicant-basic-details-form/1");
+            console.log("Profile ID:", profileId);
+          console.log("Resume status:", resume);
           } else {
             localStorage.setItem("jwtToken", userData.data.jwt);
             navigate("/applicanthome");
+            console.log("Profile ID:", profileId);
+          console.log("Resume status:", resume);
           }
         }
       } catch (err) {
@@ -339,24 +349,39 @@ function LoginBody({ handleLogin }) {
         );
         const profileId = profileIdResponse.data;
         let resume;
+        console.log("resume status checking", resume);
         try {
+          const jwtToken = localStorage.getItem("jwtToken");
           const profileIdResponse1 = await axios.get(
-            `${apiUrl}/resume/pdf/${userId}`
+            `${apiUrl}/resume/pdf/${userId}`,
+             {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
           );
         } catch (error) {
           resume = error.response.status;
         }
+        console.log("Profile ID:", profileId);
+        console.log("Resume status:", resume);
         if (profileId !== 0 && resume === 404) {
           console.log("checking ", jwtToken);
           localStorage.setItem("jwtToken", userData.data.jwt);
+                  console.log("Profile ID:", profileId);
+        console.log("Resume status:", resume);
           navigate("/applicant-basic-details-form/3");
         } else if (profileId === 0 || resume === 404) {
           console.log("checking ", jwtToken);
           localStorage.setItem("jwtToken", userData.data.jwt);
           navigate("/applicant-basic-details-form/1");
+                  console.log("Profile ID:", profileId);
+        console.log("Resume status:", resume);
         } else {
           localStorage.setItem("jwtToken", userData.data.jwt);
           navigate("/applicanthome");
+                  console.log("Profile ID:", profileId);
+        console.log("Resume status:", resume);
         }
       }
     } catch (error) {

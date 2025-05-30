@@ -6,7 +6,8 @@ const ChatBotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ sender: 'bot', text: 'Hi! Ask me anything!' }]);
   const [input, setInput] = useState('');
- 
+const geminiUrl = process.env.REACT_APP_GEMINI_API;
+
   const toggleChat = () => setIsOpen(!isOpen);
  
   const sendMessage = async () => {
@@ -18,7 +19,7 @@ const ChatBotWidget = () => {
  
     try {
       const res = await axios.post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyA5tN62QyMYjBNonduJGWzBlGY4q4_jvrs',
+  geminiUrl,
         {
           contents: [{ parts: [{ text: input }] }]
         }

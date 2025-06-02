@@ -1437,6 +1437,7 @@ const handleTextFieldChange = (id, value) => {
         break;
     }
   };
+  
 // const handleSelectChange = async (e) => {
 //   const newStatus = e.target.value;
 //   if(selectedApplicants.length === 0){
@@ -1494,6 +1495,8 @@ const handleTextFieldChange = (id, value) => {
  
 
 
+
+
 const handleSelectChange = (e) => {
   const newStatus = e.target.value;
 
@@ -1515,15 +1518,34 @@ const handleSelectChange = (e) => {
 const updateApplicantStatus = async (status, reason = null) => {
   try {
     const updatePromises = selectedApplicants.map(async (applyJobId) => {
-      return await axios.put(
+      const response = await axios.put(
         `${apiUrl}/applyjob/recruiters/applyjob-update-status/${applyJobId}`,
         { newStatus: status, reason: reason || null }
       );
+      return { applyJobId, newStatus: status }; // Return data for updating UI
     });
 
-    await Promise.all(updatePromises);
+    const updatedResults = await Promise.all(updatePromises);
 
-    setSnackbar({ open: true, message: `Status updated to ${status}`, type: 'success' });
+    // Update UI like in your previous commented version
+    const updatedApplicants = applicants.map((application) => {
+      const updatedResult = updatedResults.find(
+        (result) => result.applyJobId === application.applyjobid
+      );
+      if (updatedResult) {
+        return { ...application, applicantStatus: updatedResult.newStatus };
+      }
+      return application;
+    });
+
+    setApplicants(updatedApplicants); // ✅ this ensures UI reflects new status
+
+    setSnackbar({
+      open: true,
+      message: `Status updated to ${status} for ${selectedApplicants.length} applicant(s)`,
+      type: 'success',
+    });
+
     setSelectedStatus("");
     setSelectedApplicants([]);
     setReason("");
@@ -1533,6 +1555,7 @@ const updateApplicantStatus = async (status, reason = null) => {
     setSnackbar({ open: true, message: 'Error updating status', type: 'error' });
   }
 };
+
 const handleSendFeedback = () => {
   if (!reason.trim()) {
     setSnackbar({ open: true, message: 'Please provide a reason', type: 'error' });
@@ -1912,7 +1935,7 @@ const exportCSV = () => {
                 Export CSV
             </button>
             </div>
-            
+{/*             
             <select
               className="status-select"
               value={selectedStatus || ""}
@@ -1941,7 +1964,38 @@ const exportCSV = () => {
             <option value="Interviewing">Interviewing</option>
             <option value="Selected">Selected</option>
             <option value="Rejected">Rejected</option>
-            </select>
+            </select> */}
+
+
+            <select
+  className="status-select"
+  value={selectedStatus || ""}
+  onChange={handleSelectChange}
+  onFocus={(e) => (e.target.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.2)")}
+  onBlur={(e) => (e.target.style.boxShadow = "none")}
+  style={{
+    position: "absolute",
+    right: "0",
+    marginRight: "25px",
+    top: "180px",
+    marginBottom: "10px",
+    zIndex: 1,
+    padding: "10px",
+    borderRadius: "9px",
+    cursor: "pointer",
+    transition: "box-shadow 0.3s ease",
+  }}
+>
+  <option value="" disabled hidden>
+    Change Status
+  </option>
+  <option value="Screening">Screening</option>
+  <option value="Shortlisted">Shortlisted</option>
+  <option value="Interviewing">Interviewing</option>
+  <option value="Selected">Selected</option>
+  <option value="Rejected">Rejected</option>
+</select>
+
             </div>
           <div className="themes-container">
             <div className="row">

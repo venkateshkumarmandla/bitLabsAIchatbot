@@ -59,7 +59,9 @@ function ApplicantAppliedJobs({ setSelectedJobId }) {
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
   const handleCheckStatusClick = (jobId, applyJobId) => {
-    setSelectedJobId(applyJobId);
+    // setSelectedJobId(applyJobId);
+    console.log('Job ID:', jobId);
+    console.log('Apply Job ID:', applyJobId);
     navigate(`/applicant-interview-status?jobId=${jobId}&applyJobId=${applyJobId}`);
   };
  

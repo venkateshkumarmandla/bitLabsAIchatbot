@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import axios from 'axios';
 import { apiUrl } from '../../services/ApplicantAPIService';
 import { useUserContext } from '../common/UserProvider';
@@ -6,6 +6,7 @@ import Snackbar from '../common/Snackbar';
 import { Typeahead } from 'react-bootstrap-typeahead';
  
 const ProfessionalDetailsPopup = ({ applicantDetails }) => {
+    const typeaheadRef = useRef();
   
   const [qualification, setQualification] = useState('');
   
@@ -157,16 +158,22 @@ const ProfessionalDetailsPopup = ({ applicantDetails }) => {
       <div className="popup-heading">Professional Details</div>
       <div className="input-container-basicdetails">
         <div className="input-wrapper1">
-          <Typeahead
-            id="qualification"
-            options={qualificationsOptions}
-            placeholder="*Qualification"
-            onChange={handleQualificationChange}
-            selected={formValues.qualification ? [formValues.qualification] : []}
-            className="custom-typeahead"
-          />
-          {errors.qualification && <div className="error-message">{errors.qualification}</div>}
-        </div>
+      <Typeahead
+        id="qualification"
+        ref={typeaheadRef}
+        options={qualificationsOptions}
+        placeholder="*Qualification"
+        onChange={handleQualificationChange}
+        selected={formValues.qualification ? [formValues.qualification] : []}
+        className="custom-typeahead"
+        onFocus={() => {
+          if (typeaheadRef.current) {
+            typeaheadRef.current.toggleMenu(); // Open dropdown on focus
+          }
+        }}
+      />
+      {errors.qualification && <div className="error-message">{errors.qualification}</div>}
+    </div>
  
         <div className="input-wrapper1">
           <Typeahead

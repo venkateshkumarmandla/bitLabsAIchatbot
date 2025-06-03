@@ -22,7 +22,7 @@ import TermsOfServices from './components/common/TermsOfServices';
 import ApplicantBasicDetails from './components/applicantcomponents/ApplicantBasicDetails';
 import JobWidget from './components/jobWidget';
 import ChatBotWidget from './ChatBotWidget';
-
+import AccountDeletionPolicy from './components/accountpolicy/AccountDeletionPolicy';
 
 
 function App() {
@@ -72,6 +72,7 @@ function App() {
               <Route path="/cookiepolicy" element={<CookiePolicy />} />
               <Route path="/termsofservices" element={<TermsOfServices />} />
   <Route path="/widget" element={<JobWidget />} />
+              <Route path="/account-deletion" element={<AccountDeletionPolicy />} />
               {isLoggedIn ? (
                 <>
                 <Route path="/applicanthome" element={<ApplicantHomePage />} />

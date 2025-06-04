@@ -199,7 +199,7 @@ function LoginBody({ handleLogin }) {
           try {
             const jwtToken = localStorage.getItem("jwtToken");
             const profileIdResponse1 = await axios.get(
-              `${apiUrl}/resume/pdf/${userId}`,
+              `${apiUrl}/applicant-pdf/getresume/${userId}`,
                {
               headers: {
                 Authorization: `Bearer ${jwtToken}`,

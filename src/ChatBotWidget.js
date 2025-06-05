@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ChatBotWidget.css'; // Add styles here or use Tailwind if you're using it
- 
+ import { apiUrl } from './services/ApplicantAPIService'; // Adjust the import path as needed
 const ChatBotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ sender: 'bot', text: 'Hi! Ask me anything!' }]);
   const [input, setInput] = useState('');
-const geminiUrl = process.env.REACT_APP_GEMINI_API;
+// const geminiUrl = process.env.REACT_APP_GEMINI_API;
+const geminiUrl = `${apiUrl}/api/gemini/chat`;
 
   const toggleChat = () => setIsOpen(!isOpen);
  

@@ -1,14 +1,16 @@
 
 
-import axios from 'axios';
+// import axios from 'axios';
 
 
 
-    
-    // export const apiUrl = 'http://192.168.200.101:8081';
-        // export const apiUrl = 'http://192.168.1.13:8081';
-                // export const apiUrl = 'http://192.168.200.101:8081';
-                                export const apiUrl = 'http://192.168.1.60:8081';
+ 
+                export const apiUrl = 'http://192.168.200.101:8081';
+                // export const apiUrl = 'http://192.168.1.60:8081';
+
+
+            // export const apiUrl = 'http://192.168.137.1:8081';
+
 
 
 

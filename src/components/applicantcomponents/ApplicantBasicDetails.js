@@ -142,7 +142,7 @@ const handlePreferredJobLocationsChange = (selected) => {
   const [loginUrl, setLoginUrl] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const steps = ['Personal Information', 'Professional Details', 'Upload Resume'];
-  const yearsOptions = Array.from({ length: 16 }, (_, i) => ({ label: `${i} ` }));
+  const yearsOptions = Array.from({ length: 16 }, (_, i) => ({ label: `${i}`}));
 
   const qualificationsOptions = ['B.Tech', 'MCA', 'Degree', 'Intermediate', 'Diploma'];
   const skillsOptions = ['Java', 'C', 'C++', 'C Sharp', 'Python', 'HTML', 'CSS', 'JavaScript', 'TypeScript', 'Angular', 'React', 'Vue', 'JSP', 'Servlets', 'Spring', 'Spring Boot', 'Hibernate', '.Net', 'Django', 'Flask', 'SQL', 'MySQL', 'SQL-Server', 'Mongo DB', 'Selenium', 'Regression Testing', 'Manual Testing'];

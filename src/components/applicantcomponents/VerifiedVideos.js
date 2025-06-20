@@ -106,6 +106,14 @@ const VerifiedVideos = () => {
                     light={true}
                     onClickPreview={() => setPlayingIndex(index)}
                     onEnded={() => handleEnded(video.videoId)}
+                    config={{
+    file: {
+      attributes: {
+        controlsList: 'nodownload',
+        disablePictureInPicture: true,
+      },
+    },
+  }}
                   />
                 </div>
                 <p style={styles.caption}>{video.title || `Video ${index + 1}`}</p>
